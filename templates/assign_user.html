@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Assign User{% endblock %}
+{% block content %}
+    <div class="container">
+      <h1>Assign User</h1>
+      <form method="post" action="{% url 'assign_user' %}">
+        {{form.errors}}
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.user.id_for_label }}">Admin:</label>
+                {{ form.user }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.assignees.id_for_label }}">Assignees:</label>
+                {{ form.assignees }}
+            </div>
+        <button type="submit">Assign</button>
+      </form>
+    </div>
+{% endblock %}

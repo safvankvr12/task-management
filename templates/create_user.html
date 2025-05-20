@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Create User{% endblock %}
+{% block content %}
+<style>
+    label {
+        display:block;
+    }
+    input:not([type="checkbox"]) {
+        width:90%;
+    }
+</style>
+<div class="container">
+    <h1 class="form-title">{% if form.instance %} Update User{% else %} Create User{% endif %} </h1>
+    
+    <form method="post" novalidate>
+        {% if form.errors %}
+        <div class="error-message">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+        
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+            {{ form.first_name }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            {{ form.last_name }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+        </div>
+        
+        <div class="form-group password-field">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+        </div>
+        
+        <div class="form-group password-field">
+            <label for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
+            {{ form.confirm_password }}
+        </div>
+        
+        <div class="permissions-section" >
+            <div class="form-group checkbox-container"  {% if not request.user.is_superuser %} style="display:none"{% endif %}>
+                {{ form.is_superuser }}
+                <label for="{{ form.is_superuser.id_for_label }}" class="checkbox-label">Super Admin</label>
+            </div>
+            
+            <div class="form-group checkbox-containe">
+                {{ form.is_staff }}
+                <label for="{{ form.is_staff.id_for_label }}" class="checkbox-label">Admin</label>
+            </div>
+        </div>
+        
+        <button type="submit" class="submit-button">Create</button>
+    </form>
+</div>
+{% endblock %}

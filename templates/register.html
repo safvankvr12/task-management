@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <div class="container">
+      <h1>Register</h1>
+      <form method="post" action="/register/">
+        {{form.errors}}
+        {% csrf_token %}
+        <input
+          type="text"
+          name="first_name"
+          placeholder="First Name"
+          required
+        />
+        <input type="text" name="last_name" placeholder="Last Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="username" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          required
+        />
+        <button type="submit">Register</button>
+      </form>
+      <div class="navigation">
+        <a href="/"><button>Home</button></a>
+        <a href="/login/"><button>Login</button></a>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}

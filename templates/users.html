@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+    <header>
+        <h1><a href="/" >Task Management System</a></h1>
+        <div class="auth-buttons">
+          {% if request.user.is_staff %}
+            <a href="{% url 'create_user' %}"><button class="register-button">Create</button></a>
+            <a href="{% url 'assign_user' %}"><button class="register-button">Assign users</button></a>
+          {% endif %}
+        </div>
+    </header>
+    <div class="task-container">
+      <section>
+        <h2 class="section-title">Users {{request.user}} </h2>
+        <table>
+          <thead>
+            <tr>
+            <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Type</th>
+              <th>actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.first_name }} {{user.last_name}}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                {% if user.is_superuser %}
+                    Super Admin
+                {% elif user.is_staff %}
+                    Admin 
+                {% else %} 
+                    User 
+                {% endif %}
+              </td>
+              <td>
+                {% if user in request.user.subordinate_user.assignees.all or request.user.is_superuser %}
+                <div class="navigation" style="justify-content:flex-start">
+                    <a href="{% url 'edit_user' user.pk %}"><button>Edit</button></a>
+                    <a href="{% url 'delete_user' user.pk %}"><button>Delete</button></a>
+                </div>
+                {% else %}
+                No permission
+                {% endif %}
+              </td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>
+{% endblock %}

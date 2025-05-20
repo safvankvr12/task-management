@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Task{% endblock %}
+{% block content %}
+<style>
+        label {
+            display:block;
+            margin-bottom:10px
+        }
+        input, textarea {
+            width:90%
+        }
+</style>
+    <div class="container">
+      <h1>Complete Task</h1>
+      <form method="post" class="task-container" >
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.completion_report.id_for_label }}">Completion Report:</label>
+                {{ form.completion_report }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.worked_hours.id_for_label }}">Worked Hours:</label>
+                {{ form.worked_hours }}
+            </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+{% endblock %}

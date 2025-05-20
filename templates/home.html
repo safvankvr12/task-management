@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<header>
+  <h1><a href="/">Task Management System</a></h1>
+  <div class="auth-buttons">
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'login' %}"><button class="login-button">Login</button></a>
+    <a href="{% url 'register' %}"
+      ><button class="register-button">Register</button></a
+    >
+    {% else %}
+    <a href="#"><button class="login-button">{{request.user}}</button></a>  
+    <a href="{% url 'logout' %}"><button class="login-button">Logout</button></a>
+    {% endif %}
+  </div>
+</header>
+<div class="hero">
+  <h2>Welcome to Our Task Task Management System</h2>
+  <p>A simple and efficient way to manage your users and tasks</p>
+</div>
+
+<div class="task-container">
+  <section>
+    <h2 class="section-title">Dashboard</h2>
+    <div class="module-buttons">
+      {% if request.user.is_staff %}
+      <a href="{% url 'users_view' %}" class="module-button users-button">
+        <div class="module-icon">👥</div>
+        <span>Users</span>
+      </a>
+      {% endif %}
+      <a href="{% url 'view_task' %}" class="module-button tasks-button">
+        <div class="module-icon">📋</div>
+        <span>Tasks</span>
+      </a>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <p>&copy; 2025 Task Management System. All rights reserved.</p>
+</footer>
+{% endblock %}
